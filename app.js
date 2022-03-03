@@ -4,6 +4,8 @@
 let todos = [];
 let users = [];
 const todoList = document.getElementById(`todoList`);
+const userOptions = document.getElementById(`userOptions`);
+console.log(userOptions);
 // ************************************************************************************************
 // EVENT ATTACHMENT
 // ************************************************************************************************
@@ -15,7 +17,7 @@ function appInit() {
   Promise.all([getAllTodos(), getAllUsers()]).then((values) => {
     [todos, users] = values;
     todos.forEach((todo) => printTodo(todo));
-    console.log(users);
+    users.forEach((user) => printUserOption(user));
   });
 }
 // ************************************************************************************************
@@ -44,6 +46,13 @@ function printTodo({ userId, id, title, completed }) {
 function getUserName(userId) {
   const singleUser = users.find((user) => user.id === userId);
   return singleUser.name;
+}
+
+function printUserOption({ id, name }) {
+  const option = document.createElement(`option`);
+  option.innerText = name;
+  option.value = id;
+  userOptions.append(option);
 }
 // ************************************************************************************************
 // ASYNC LOGIC
